@@ -21,6 +21,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @livewireStyles
 </head>
 
 <body>
@@ -73,8 +74,16 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            {{ $slot }}
         </main>
+        @livewireScripts
+        <script>
+            window.livewire.on('closeModal', () => {
+                $("[data-dismiss=modal]").trigger({
+                    type: "click"
+                })
+            });
+        </script>
     </div>
 </body>
 
