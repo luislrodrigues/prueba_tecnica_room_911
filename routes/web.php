@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Livewire\User\User;
+use App\Http\Livewire\Employee\Employee;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,4 +31,6 @@ Route::controller(LoginController::class)->group(function(){
 
 
 
-Route::get('/user',User::class)->middleware('auth')->name('user');
+Route::get('/user',User::class)->middleware(['auth','role'])->name('user');
+Route::get('/employee',Employee::class)->middleware('auth')->name('employee');
+

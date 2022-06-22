@@ -30,7 +30,7 @@
     <div id="app" class="w-100 h-100 overflow-hidden">
         <nav class="navbar navbar-expand-md navbar-light " style="background-color: rgba(34, 48, 180, 0.2);">
             <div class="container">
-                <a class="navbar-brand text-white" href="{{ url('/user') }}">
+                <a class="navbar-brand text-white" href="{{route('employee')}}">
                     ROOM_911
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -42,7 +42,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto">
                             <li class="nav-item ">
-                                <a class="nav-link text-dark" href="#" style="font-size:18px;">Employees</a>
+                                <a class="nav-link text-dark" href="{{route('employee')}}" style="font-size:18px;">Employees</a>
                             </li>
                             @if (Auth::user()->role_id == 1)
                                 <li class="nav-item">

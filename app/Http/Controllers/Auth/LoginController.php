@@ -42,7 +42,7 @@ class LoginController extends Controller
                 Auth::logout();
                 return redirect()->route('login')->with('message','Your account is disabled');
             }else{
-                return redirect()->route('user');
+                return redirect()->route('employee');
             }
         }
         return redirect()->route('login')->with('message', 'Invalid credentials');
