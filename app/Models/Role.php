@@ -13,8 +13,8 @@ class Role extends Model
     protected $table = 'roles';
 
     const ROLES = [
-        'admin_room_911',
-        'assistant_room_911'
+        'admin_root',
+        'admin_room_911'
     ];
 
     protected $fillable = [

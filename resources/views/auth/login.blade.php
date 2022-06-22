@@ -1,6 +1,4 @@
-@component()
-    
-@section('content')
+@component('layouts.app')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -12,14 +10,14 @@
                             @csrf
 
                             <div class="row mb-3">
-                                <label for="email" class="col-md-4 col-form-label text-md-end">Email</label>
+                                <label for="user_name" class="col-md-4 col-form-label text-md-end">Username</label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="email"
-                                        class="form-control @error('email') is-invalid @enderror" name="email"
-                                        value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                    <input id="user_name" type="text"
+                                        class="form-control @error('user_name') is-invalid @enderror" name="user_name"
+                                        value="{{ old('user_name') }}" required autocomplete="user_name" autofocus>
 
-                                    @error('email')
+                                    @error('user_name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -44,8 +42,8 @@
                             </div>
 
                             @if (session('message'))
-                                <div class="row mb-3">
-                                    <div class="alert alert-danger">
+                                <div class="row mb-3 d-flex justify-content-center">
+                                    <div class="alert alert-danger col-md-7 ">
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -67,6 +65,4 @@
             </div>
         </div>
     </div>
-@endsection
-@endcomponent('layouts.app')
-
+@endcomponent

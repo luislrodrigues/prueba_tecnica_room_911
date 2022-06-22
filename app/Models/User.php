@@ -18,9 +18,11 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $table = 'users';
+    
     protected $fillable = [
         'role_id',
-        'name',
+        'user_name',
         'email',
         'password',
         'status'
@@ -47,4 +49,17 @@ class User extends Authenticatable
     public function role(){
         return $this->belongsTo(Role::class);
     }
-}
+
+
+     // scope
+     public function scopeHandleAll($query)
+     {
+         return $query->where('id', '>', 1);
+     }
+
+   
+ }
+ 
+ 
+ 
+
