@@ -28,10 +28,10 @@ class User extends Component
 
     public function store(){
         $this->validate([
-            'user_name' => ['required','string','min:4',Rule::unique('users')->whereNull('deleted_at')],
-            'email'     => ['required','email',Rule::unique('users')->whereNull('deleted_at')],
-            'password'  => ['required','min:4'],
-            'role_id'   => ['required','exists:roles,id']
+            'user_name' => ['bail','required','string','min:4',Rule::unique('users')->whereNull('deleted_at')],
+            'email'     => ['bail','required','email',Rule::unique('users')->whereNull('deleted_at')],
+            'password'  => ['bail','required','min:4'],
+            'role_id'   => ['bail','required','exists:roles,id']
         ]);
 
         ModelsUser::create([
@@ -58,10 +58,10 @@ class User extends Component
         $user = ModelsUser::find($this->id_selected);
 
         $this->validate([
-            'user_name'   => ['required','string',Rule::unique('users')->ignore($this->id_selected)->whereNull('deleted_at')],
-            'email'       => ['required','email',Rule::unique('users')->ignore($this->id_selected)->whereNull('deleted_at')],
-            'password'    => ['nullable','min:4'],
-            'role_id'     => ['required','exists:roles,id']
+            'user_name'   => ['bail','required','string',Rule::unique('users')->ignore($this->id_selected)->whereNull('deleted_at')],
+            'email'       => ['bail','required','email',Rule::unique('users')->ignore($this->id_selected)->whereNull('deleted_at')],
+            'password'    => ['bail','nullable','min:4'],
+            'role_id'     => ['bail','required','exists:roles,id']
         ]);
 
         $user->update([

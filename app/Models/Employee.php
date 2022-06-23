@@ -28,4 +28,21 @@ class Employee extends Model
     public function entries(){
         return $this->hasMany(Entry::class);
     }
+
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('first_name','like', '%'.$search.'%')
+                        ->orWhere('last_name','like', '%'.$search.'%')
+                        ->orWhere('id','like', '%'.$search.'%');
+    }
+
+    public function scopeDepartmentFilter($query, $departament_id){
+        return $query->where('department_id', $departament_id);
+    }
+
+    public function scopeHandleAll($query){
+        return $query->where('id', '>', 0);
+
+    }
 }

@@ -2,12 +2,12 @@
     <div class="col-xl-12 col-lg-12 col-md-12 col-12 layout-spacing">
         <div class="widget-content-area br-4">
             <div class="widget-header">
-                <div class="row d-flex justify-content-center mx-2">
+                <div class="row d-flex justify-content-center mx-2 mb-2">
                     <div class="col-sm-4 mb-2 ">
                         <input type="search" placeholder="Search" class="form-control " wire:model="search" />
                     </div>
                     <div class="col-sm-2 mb-2">
-                        <button data-toggle="modal" data-target="#modalCreate" class="btn btn-success">Newuser</button>
+                        <button data-toggle="modal" data-target="#modalCreate" class="btn btn-success rounded-pill">New user</button>
                     </div>
 
                 </div>
@@ -74,7 +74,6 @@
     @include('livewire.user.modal-update')
 
     @push('scripts')
-        <script type="text/javascript" src="{{ asset('js/alert/alert.js') }}"></script>
         <script>
             livewire.on('alertSuccess', (message) => {
                 alertSuccess(message)

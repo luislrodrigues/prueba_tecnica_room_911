@@ -9,30 +9,30 @@
             <div class="modal-body pt-1">
                 <form>
                     <div class="form-group">
-                        <label for="inputUser_name">Username</label>
+                        <label class="form-label" >Username</label>
                         <input type="text" class="form-control" name="user_name" wire:model.lazy="user_name">
                         @if ($errors->has('user_name'))
                             <span class="text-danger text-left">{{ $errors->first('user_name') }}</span>
                         @endif
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail">Email</label>
+                        <label class="form-label" >Email</label>
                         <input type="text" class="form-control" name="email" wire:model.lazy="email">
                         @if ($errors->has('email'))
                             <span class="text-danger text-left">{{ $errors->first('email') }}</span>
                         @endif
                     </div>
                     <div class="form-group">
-                        <label for="inputPassword">Password</label>
+                        <label class="form-label">Password</label>
                         <input type="password" class="form-control" name="password" wire:model.lazy="password">
                         @if ($errors->has('password'))
                             <span class="text-danger text-left">{{ $errors->first('password') }}</span>
                         @endif
                     </div>
                     <div class="form-group">
-                        <label for="role_id" class="form-label">Role</label>
+                        <label  class="form-label">Role</label>
                         <select wire:model="role_id" class="form-control">
-                            <option value="Elegir">Elegir</option>
+                            <option value="Select">Select</option>
                             @foreach ($roles as $role)
                                 <option value="{{ $role->id }}">
                                     {{ $role->name }}
