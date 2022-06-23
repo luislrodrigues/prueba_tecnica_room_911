@@ -27,3 +27,13 @@ const  alertSuccess  = (message) => {
         timer: 1500
     })
 };
+
+
+const alertFailed = (message) => {
+    Swal.fire({
+        icon: 'error',
+        title: message,
+        showConfirmButton: false,
+        timer: 1500
+     })
+} 

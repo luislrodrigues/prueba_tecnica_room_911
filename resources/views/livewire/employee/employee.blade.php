@@ -21,11 +21,10 @@
                         </div>
                     </div>
                     <div class="mb-4 d-flex justify-content-center">
-                        <button data-toggle="modal" data-target="#modalCreate"
-                            class="btn btn-success rounded-pill mx-3">New Employee</button>
+                        <button data-toggle="modal" data-target="#modalCreate" class="btn btn-success rounded-pill mx-3">New Employee</button>
                         <button class="btn btn-info rounded-pill mx-3">History PDF</button>
-                        <button class="btn btn-info rounded-pill mx-3">CSV</button>
-                        <button class="btn btn-info rounded-pill mx-3">Entry</button>
+                        <button class="btn btn-info rounded-pill mx-3" data-toggle="modal" data-target="#modalCreateCsv">CSV</button>
+                        <button class="btn btn-info rounded-pill mx-3" data-toggle="modal" data-target="#modalEntry">Entry</button>
                     </div>
                 </div>
                 @if ($employees->count())
@@ -107,6 +106,8 @@
         @include('livewire.employee.modal-create')
         @include('livewire.employee.modal-update')
         @include('livewire.employee.modal-show')
+        @include('livewire.employee.modal-create-csv')
+        @include('livewire.employee.modal-entry-employe')
 
         @push('scripts')
             <script>
@@ -117,6 +118,9 @@
                     $("[data-dismiss=modal]").trigger({
                         type: "click"
                     })
+                });
+                livewire.on('alertFailed', (message) => {
+                    alertFailed(message)
                 });
             </script>
         @endpush

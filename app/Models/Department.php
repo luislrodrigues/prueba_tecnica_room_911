@@ -13,7 +13,7 @@ class Department extends Model
     protected $table = 'departments';
 
     const DEPARTMENTS = [
-        'Departament 1',
+        'Department 1',
         'Department 2'
     ];
 

@@ -15,9 +15,9 @@ class CreateEntriesTable extends Migration
     {
         Schema::create('entries', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('employee_id')->constrained('employees');
+            $table->foreignId('employee_id')->nullable()->constrained('employees')->nullable();
 
-            $table->string('document_number');
+            $table->string('document_number')->nullable();
             $table->enum('entry_action', ['YES', 'NO'])->default('NO');
             
             $table->softDeletes();
