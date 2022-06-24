@@ -36,12 +36,13 @@ class LoginController extends Controller
      * @return void
      */
 
-    public function login(Request $request){
-        if(Auth::attempt(['user_name' => $request->user_name, 'password' => $request->password])){
-            if(Auth::user()->status == "DISABLED"){
+    public function login(Request $request)
+    {
+        if (Auth::attempt(['user_name' => $request->user_name, 'password' => $request->password])) {
+            if (Auth::user()->status == "DISABLED") {
                 Auth::logout();
-                return redirect()->route('login')->with('message','Your account is disabled');
-            }else{
+                return redirect()->route('login')->with('message', 'Your account is disabled');
+            } else {
                 return redirect()->route('employee');
             }
         }

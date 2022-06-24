@@ -12,16 +12,20 @@ class User extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    public $user_name, $email, $password, $role_id, $status, $id_selected, $search;
+    public $user_name, $email, $password, $role_id, $status, $id_selected, $search, $roles;
 
     protected $listeners = ['render' => 'render', 'destroy'];
+
+    public function mount()
+    {
+        $this->roles = Role::all();
+    }
 
     public function render()
     {
         $users = ModelsUser::where('user_name', 'like', '%' . $this->search . '%')->handleAll()->paginate(7);
-        $roles = Role::all();
 
-        return view('livewire.user.user', compact('users', 'roles'));
+        return view('livewire.user.user', compact('users'));
     }
 
     public function store()

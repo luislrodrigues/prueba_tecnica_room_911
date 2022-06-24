@@ -46,12 +46,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    
+    //RELATIONS 
+
     public function role(){
         return $this->belongsTo(Role::class);
     }
 
 
-     // scope
+     // SCOPE
+
      public function scopeHandleAll($query)
      {
          return $query->where('id', '>', 1);

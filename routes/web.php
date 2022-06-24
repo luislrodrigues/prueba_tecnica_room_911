@@ -17,20 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('auth.login');
-// });
-
-
 Route::controller(LoginController::class)->group(function(){
     Route::get('/', 'showLoginForm')->name('login');
     Route::post('/', 'login');
     Route::post('logout', 'logout')->name('logout');
 });
 
-
-
-
-Route::get('/user',User::class)->middleware(['auth','role'])->name('user');
-Route::get('/employee',Employee::class)->middleware('auth')->name('employee');
-
+Route::middleware('auth')->group(function(){
+    Route::get('/user',User::class)->middleware('role')->name('user');
+    Route::get('/employee',Employee::class)->name('employee');
+    Route::get('history/pdf',[Employee::class, 'historyPDF'])->name('pdf');
+});

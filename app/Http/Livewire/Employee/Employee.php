@@ -6,11 +6,13 @@ use App\Imports\EmployeesImport;
 use App\Models\Department;
 use App\Models\Employee as ModelsEmployee;
 use App\Models\Entry;
+use Carbon\Carbon;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class Employee extends Component
 {
@@ -18,18 +20,21 @@ class Employee extends Component
 
     protected $paginationTheme = 'bootstrap';
     public $department_id, $first_name, $last_name, $email, $document_number, $status, $id_selected;
-    public $search, $departmentFilter;
-    public $file_csv;
-    public $document_number_entry;
+    public  $departments, $search, $departmentFilter, $file_csv, $document_number_entry, $action = 1 ;
     protected $listeners = ['render' => 'render', 'destroy'];
+    public $entries, $employee, $date_from, $date_to;
+
+    public function mount()
+    {
+        $this->departments = Department::all();
+
+    }
 
     public function render()
     {
         $employees = ModelsEmployee::handleAll();
-        $departments = Department::all();
         return view('livewire.employee.employee', [
-            'employees'   => $this->employeeFilter($employees)->paginate(10),
-            'departments' => $departments,
+            'employees'   => $this->employeeFilter($employees)->paginate(10)
         ]);
     }
 
@@ -57,6 +62,23 @@ class Employee extends Component
         $this->reset('department_id', 'first_name', 'last_name', 'email', 'document_number');
     }
 
+    public function show(ModelsEmployee $employee, $action)
+    {
+        $this->action = $action;
+        $this->id_selected = $employee->id;
+        $this->employee = $employee;
+        $this->entries = $employee->entries;        
+    }
+
+    public function entryShowFilter()
+    {
+        
+        $entries = Entry::getEntryEmployee($this->id_selected);
+        if ($this->date_from && $this->date_to ) {
+            $entries->dateEntry($this->date_from, $this->date_to);
+        }
+        $this->entries = $entries->get();
+    }
 
     public function edit(ModelsEmployee $employee)
     {
@@ -142,14 +164,21 @@ class Employee extends Component
         }
     }
 
+    public function historyPDF(){
+        $entries = Entry::all();
+        $pdf = PDF::loadView('historyPDF',compact('entries'));
+        return $pdf->stream("history-PDF.pdf");
+    }
+
 
     public function employeeFilter($employees)
     {
-        $this->resetPage();
         if ($this->search) {
+            $this->resetPage();
             $employees->search($this->search);
         }
         if ($this->departmentFilter > 0) {
+            $this->resetPage();
             $employees->departmentFilter($this->departmentFilter);
         }
         return $employees;
@@ -159,6 +188,7 @@ class Employee extends Component
     public function cleanFilter()
     {
         $this->reset('search', 'departmentFilter');
+        $this->resetPage();
     }
 
 
@@ -171,6 +201,6 @@ class Employee extends Component
     public function restart()
     {
         $this->resetValidation();
-        $this->reset('department_id', 'first_name', 'last_name', 'email', 'document_number', 'document_number_entry');
+        $this->reset('department_id', 'first_name', 'last_name', 'email', 'document_number', 'document_number_entry','action');
     }
 }

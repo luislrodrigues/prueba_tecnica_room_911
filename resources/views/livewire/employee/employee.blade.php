@@ -1,4 +1,5 @@
 <div class="row layout-top-spacing">
+    @if ($action == 1)
     <div class="col-xl-12 col-lg-12 col-md-12 col-12 layout-spacing">
         <div class="widget-content-area br-4">
             <div class="widget-header">
@@ -22,7 +23,7 @@
                     </div>
                     <div class="mb-4 d-flex justify-content-center">
                         <button data-toggle="modal" data-target="#modalCreate" class="btn btn-success rounded-pill mx-3">New Employee</button>
-                        <button class="btn btn-info rounded-pill mx-3">History PDF</button>
+                            <a href="{{route('pdf')}}" target="_blank" class="btn btn-info rounded-pill mx-3">History PDF</a>
                         <button class="btn btn-info rounded-pill mx-3" data-toggle="modal" data-target="#modalCreateCsv">CSV</button>
                         <button class="btn btn-info rounded-pill mx-3" data-toggle="modal" data-target="#modalEntry">Entry</button>
                     </div>
@@ -69,8 +70,7 @@
                                         </td>
                                         <td class="text-center" style="background-color: rgb(249, 253, 253);">
                                             <button type="button" class="btn btn-sm btn-success mx-1"
-                                             data-toggle="modal" data-target="#modalShow"
-                                                wire:click="edit({{ $employee->id }})">
+                                                wire:click="show({{ $employee->id }},2)">
                                                 <i class="bi bi-card-list"></i>
                                             </button>
                                             <button type="button" class="btn btn-sm btn-primary mx-1"
@@ -105,23 +105,31 @@
 
         @include('livewire.employee.modal-create')
         @include('livewire.employee.modal-update')
-        @include('livewire.employee.modal-show')
         @include('livewire.employee.modal-create-csv')
         @include('livewire.employee.modal-entry-employe')
 
-        @push('scripts')
-            <script>
-                livewire.on('alertSuccess', (message) => {
-                    alertSuccess(message)
-                });
-                window.livewire.on('closeModal', () => {
-                    $("[data-dismiss=modal]").trigger({
-                        type: "click"
-                    })
-                });
-                livewire.on('alertFailed', (message) => {
-                    alertFailed(message)
-                });
-            </script>
-        @endpush
     </div>
+    @else
+        
+    <div class="col-xl-12 col-lg-12 col-md-12 col-12 layout-spacing">
+       @include('livewire.employee.employee-show')
+    </div>
+    
+    @endif
+
+    @push('scripts')
+        <script>
+            livewire.on('alertSuccess', (message) => {
+                alertSuccess(message)
+            });
+            window.livewire.on('closeModal', () => {
+                $("[data-dismiss=modal]").trigger({
+                    type: "click"
+                })
+            });
+            livewire.on('alertFailed', (message) => {
+                alertFailed(message)
+            });
+        </script>
+    @endpush
+</div>

@@ -16,17 +16,17 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
-            'role_id'=> 1,
-            'user_name'=> 'root',
-            'email'=> 'root@email.com',
-            'password'=> bcrypt('1234Ab'),
+            'role_id'    => 1,
+            'user_name'  => 'root',
+            'email'      => 'root@email.com',
+            'password'   => bcrypt('1234Ab'),
         ]);
 
         User::create([
-            'role_id'=> 2,
-            'user_name'=> 'room_911',
-            'email'=> 'admin@aemail.com',
-            'password'=> bcrypt('1234Ab'),
+            'role_id'    => 2,
+            'user_name'  => 'room_911',
+            'email'      => 'admin@aemail.com',
+            'password'   => bcrypt('1234Ab'),
         ]);
     }
 }

@@ -22,6 +22,8 @@ class Department extends Model
         'status'
     ];
 
+    //relations
+    
     public function employees(){
         return $this->hasMany(Employee::class);
     }
