@@ -37,7 +37,7 @@ class EmployeesImport implements ToModel, WithHeadingRow, WithBatchInserts,WithC
             'department_id'   => ['bail','required','exists:departments,id'],
             'first_name'      => ['bail','required','string'],
             'last_name'       => ['bail','required','string'],
-            'email'           => ['bail','required','email'],
+            'email'           => ['bail','required','email',Rule::unique('employees')->whereNull('deleted_at')],
             'document_number' => ['bail','required','numeric','digits_between:7,12',Rule::unique('employees')->whereNull('deleted_at')]
         ];
     }
