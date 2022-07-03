@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <title>Laravel</title>
     <meta charset="utf-8">
@@ -18,27 +19,38 @@
         <div class="text-center">
             <h5 class=" font-weight-bold">HISTORY ROOM_911</h5>
         </div>
-        <table class="table table-bordered mt-3">
-            <thead>
-                <tr>
-                    <th class="text-center">Full Name</th>
-                    <th class="text-center">Document number</th>
-                    <th class="text-center">Access date</th>
-                    <th class="text-center">Entries</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($entries as $entry)
+        @if ($entries->count())
+            <table class="table table-bordered mt-3">
+                <thead>
                     <tr>
-                        <td class="text-center">{{ $entry->employee_id ? $entry->employee->full_name : "Unknown" }}</td>
-                        <td class="text-center">{{$entry->document_number ? $entry->document_number : $entry->employee->document_number }}</td>
-                        <td class="text-center">{{ $entry->created_at }}</td>
-                        <td class="text-center {{$entry->entry_action == "YES" ? "text-success" : "text-danger"}}">{{ $entry->entry_action }}</td>
+                        <th class="text-center">Full Name</th>
+                        <th class="text-center">Document number</th>
+                        <th class="text-center">Access date</th>
+                        <th class="text-center">Entries</th>
                     </tr>
-                @empty
-                @endforelse
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @forelse ($entries as $entry)
+                        <tr>
+                            <td class="text-center">
+                                {{ $entry->employee_id ? $entry->employee->full_name : 'Unknown' }}</td>
+                            <td class="text-center">
+                                {{ $entry->document_number ? $entry->document_number : $entry->employee->document_number }}
+                            </td>
+                            <td class="text-center">{{ $entry->created_at }}</td>
+                            <td
+                                class="text-center {{ $entry->entry_action == 'YES' ? 'text-success' : 'text-danger' }}">
+                                {{ $entry->entry_action }}</td>
+                        </tr>
+                    @empty
+                    @endforelse
+                </tbody>
+            </table>
+        @else
+            <div class="text-center mt-3 text-danger">
+                <h4>There are no records</h4>
+            </div>
+        @endif
     </div>
 </body>
 

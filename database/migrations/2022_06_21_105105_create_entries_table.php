@@ -15,7 +15,7 @@ class CreateEntriesTable extends Migration
     {
         Schema::create('entries', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreignId('employee_id')->nullable()->constrained('employees')->nullable();
+            $table->foreignId('employee_id')->nullable()->constrained('employees')->onDelete('cascade');
 
             $table->string('document_number')->nullable();
             $table->enum('entry_action', ['YES', 'NO'])->default('NO');

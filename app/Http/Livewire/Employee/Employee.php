@@ -121,6 +121,7 @@ class Employee extends Component
     public function destroy(ModelsEmployee $employee)
     {
         $employee->delete();
+        $employee->entries()->delete();
         $this->emit('render');
     }
 
